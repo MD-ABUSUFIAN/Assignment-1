@@ -1,6 +1,5 @@
 
-type Union = string | number | boolean;
-const formatValue = (value: Union): Union => {
+const formatValue = (value: string | number | boolean): string | number | boolean => {
   if (typeof value === 'string') {
     return value.toUpperCase();
   } else if (typeof value === 'number') {
@@ -11,7 +10,6 @@ const formatValue = (value: Union): Union => {
 };
 
 
-
 const getLength = (value: string | unknown[]): number => {
   if (typeof value === 'string') {
     return value.length;
@@ -19,7 +17,6 @@ const getLength = (value: string | unknown[]): number => {
     return value.length;
   }
 };
-
 
 
 class Person {
@@ -36,41 +33,27 @@ class Person {
 
 
 
-
-type Items = {
-  title: string;
-  rating: number;
-};
-const filterByRating = (items: Items[]): Items[] => {
+const filterByRating = (items: {title:string,rating:number}[]): {title:string,rating:number}[] => {
   const filterItem = items.filter((item) => item.rating >= 4);
   return filterItem;
 };
-const books: Items[] = [
-  { title: 'Book A', rating: 4.5 },
-  { title: 'Book B', rating: 3.2 },
-  { title: 'Book C', rating: 5.0 },
-];
 
 
 
-
-type User = {
+const filterActiveUsers = (items:{
   id: number;
   name: string;
   email: string;
   isActive: boolean;
-};
-
-const filterActiveUsers = (items: User[]): User[] => {
+}[]): {
+  id: number;
+  name: string;
+  email: string;
+  isActive: boolean;
+}[] => {
   const filterIsActive = items.filter((item) => item.isActive === true);
   return filterIsActive;
 };
-
-const users: User[] = [
-  { id: 1, name: 'Rakib', email: 'rakib@example.com', isActive: true },
-  { id: 2, name: 'Asha', email: 'asha@example.com', isActive: false },
-  { id: 3, name: 'Rumi', email: 'rumi@example.com', isActive: true },
-];
 
 
 
@@ -80,19 +63,11 @@ interface Book {
   publishedYear: number;
   isAvailable: boolean;
 }
-
-const printBookDetails = (books: Book): string => {
+const printBookDetails = (books:Book): string => {
   return `Title: ${books.title}, Author: ${books.author}, Published: ${
     books.publishedYear
   }, Available: ${books.isAvailable ? 'Yes' : 'No'}`;
 };
-const myBook: Book = {
-  title: 'The Great Gatsby',
-  author: 'F. Scott Fitzgerald',
-  publishedYear: 1925,
-  isAvailable: true,
-};
-
 
 
 
@@ -141,24 +116,16 @@ const getUniqueValues = (array1: number[], array2: number[]) => {
   return newArray;
 };
 
-const array1: number[] = [1, 5, 8, 8, 3];
-const array2: number[] = [3, 4, 5, 6, 7, 9, 4, 2];
 
-
-
-
-
-type Product = {
+const calculateTotalPrice = (products:  {
   name: string;
   price: number;
   quantity: number;
   discount?: number;
-};
-const calculateTotalPrice = (products: Product[]): number => {
+}[]): number => {
   if (products.length === 0) {
     return 0;
   }
-
   const totalPrice = products.reduce((subTotal, product) => {
     const { price, quantity, discount } = product;
 
@@ -173,8 +140,3 @@ const calculateTotalPrice = (products: Product[]): number => {
   return totalPrice;
 };
 
-const products: Product[] = [
-  { name: 'Pen', price: 10, quantity: 2 },
-  { name: 'Notebook', price: 25, quantity: 3, discount: 10 },
-  { name: 'Bag', price: 50, quantity: 1, discount: 20 },
-];
