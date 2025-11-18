@@ -41,9 +41,9 @@ interface Array{
 }
 এইখানে একটা interface Array মধ্যে index সাধারনত number হিসেবে থাকে।তাই index:number হবে এবং index যেহেতু string ‍হবে তাই string দেওয়া হইসে।
 
-# What is the use of the keyof keyword in TypeScript? Provide an example.
+# 2. What is the use of the keyof keyword in TypeScript? Provide an example.
 
-TypeScript এ keyof keyword ব্যবহার করা হয় কোন object type  এর key গুলোকে union type হিসেবে রাখে।
+উত্তর: TypeScript এ keyof keyword ব্যবহার করা হয় কোন object type  এর key গুলোকে union type হিসেবে রাখে।
 ### Example:
 type User={
     name:string,
@@ -75,3 +75,30 @@ const product:Product={
 getValue(product,"brand")
 
 এইখানে result হবে "apple" কারন হচ্ছে getValue ফংশনে কল দেওয়ার সময়  obj হিসেবে product এবং key হিসেবে brand পাঠানোর মাধ্যমে brand value হিসেবে result আসবে। এইখানে ProductKeys মাধ্যমে product মধ্য থেকে key গুলোকে দেয়।
+
+
+সহজভাবে keyof কোন object টাইপের সবগুলো property নামকে [key] একটি নতুন টাইপে রুপান্তর করে।
+এটা মূলত object.keys() টাইপ ভার্সন।
+
+### Important of keyof:
+* type safe code লেখার জন্য
+* ভূল property নাম দিলে IDE সাথে সাথে Error 
+* Object dynamic key access করতে সাহায্য করে
+* Generic function লেখার সময় অনেক কাজে লাগে
+### keyof with arrays index signature
+### Example:
+type Book={
+    [key:string]:string
+}
+সাধারনভাবে সকল অবজেক্ট key গুলো string থাকে তার জন্য [key:string] এবং ভেল ‍ু যেটা আসবে সেই অনুযায়ী টাইপ হবে ।
+এটা Condition মধ্যেও keyof ব্যবহার করা যায়।
+### Example:
+type order={
+    id:number;
+    name:string;
+    amount:number
+}
+
+type Number Properties={
+    [k in keyof order]=order[k] extends number ? k:never
+}[keyof order]
